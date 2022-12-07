@@ -1,4 +1,3 @@
-import 'package:social_media_network/app/core/constants/strings.dart';
 import 'package:social_media_network/app/data/services/apis/auth_api_service.dart';
 import 'package:social_media_network/app/data/services/local/storage_user_model.dart';
 import 'package:social_media_network/app/domain/entities/user_entity.dart';
@@ -10,10 +9,10 @@ class AuthApiRepositoryImp implements IAuthRepository {
   @override
   bool checkIsLogin() {
     var data = Get.find<StorageUserModel>().loadData();
-    if(data.isNotEmpty){
-      return true ;
-    }else {
-      return false ;
+    if (data.isNotEmpty) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -24,9 +23,8 @@ class AuthApiRepositoryImp implements IAuthRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> logOut() {
-    // TODO: implement logOut
-    throw UnimplementedError();
+  Future<bool> logOut() async {
+    return await Get.find<StorageUserModel>().removeData();
   }
 
   @override
@@ -53,8 +51,8 @@ class AuthApiRepositoryImp implements IAuthRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> loginUsingtwitter(data) {
-    // TODO: implement loginUsingtwitter
+  Future<Map<String, dynamic>> loginUsingTwitter(data) {
+    // TODO: implement loginUsingTwitter
     throw UnimplementedError();
   }
 
@@ -66,8 +64,9 @@ class AuthApiRepositoryImp implements IAuthRepository {
 
   @override
   Future<Map<String, dynamic>> updatePassword(
-      {required String oldPassword, required String newPassword}) {
-    // TODO: implement updatePassword
-    throw UnimplementedError();
+      {required String oldPassword, required String newPassword}) async{
+    String id = Get.find<StorageUserModel>().loadData()["id"];
+    print("the user is is $id");
+    return await _authApiService.changeUserPassword(id,oldPassword, newPassword);
   }
 }

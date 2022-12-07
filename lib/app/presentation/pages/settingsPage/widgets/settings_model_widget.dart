@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:social_media_network/app/config/screen_handler.dart';
 import 'package:social_media_network/app/core/constants/strings.dart';
+import 'package:social_media_network/app/presentation/themes/theme_controller.dart';
 
 class SettingHintBody extends StatelessWidget {
   final String hint;
@@ -16,7 +18,6 @@ class SettingHintBody extends StatelessWidget {
       height: 35,
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.only(left: 5),
-      color: Colors.grey[50],
       child: Text(
         hint,
         style: const TextStyle(
@@ -79,32 +80,40 @@ class SettingBodySections extends StatelessWidget {
                       : FontWeight.w600,
                   color: title.toLowerCase() == "logout"
                       ? Colors.red
-                      : Colors.black,
+                      :null,
                 ),
               )
             ],
           ),
           title.toLowerCase() == "dark mode"
-              ? StatefulBuilder(
-                  builder: (context, setState) {
-                    return Switch(
-                      activeColor: Colors.blue,
-                      inactiveTrackColor: Colors.grey,
-                      value: isDarkMode,
-                      onChanged: (value) {
-                        setState(
-                          () {
-                            isDarkMode = !isDarkMode;
-                          },
-                        );
-                      },
-                    );
-                  },
-                )
+              ? GetBuilder<ThemeController>(builder: (controller) {
+                  return StatefulBuilder(
+                    builder: (context, setState) {
+                      return Switch(
+                        activeColor: Colors.blue,
+                        inactiveTrackColor: Colors.grey,
+                        value: isDarkMode,
+                        onChanged: (value) {
+                          if (Get.isDarkMode) {
+                            controller.setThemeMode(ThemeMode.light);
+                            controller.setThemeKeyValue(false);
+                          } else {
+                            controller.setThemeMode(ThemeMode.dark);
+                            controller.setThemeKeyValue(true);
+                          }
+                          setState(
+                            () {
+                              isDarkMode = !isDarkMode;
+                            },
+                          );
+                        },
+                      );
+                    },
+                  );
+                })
               : const Icon(
                   Icons.chevron_right_rounded,
                   size: 32,
-                  color: Color.fromARGB(255, 0, 0, 0),
                 ),
         ],
       ),

@@ -4,7 +4,7 @@ import 'package:social_media_network/app/core/constants/strings.dart';
 class TextFormFieldSharedWidget extends StatelessWidget {
   final String label, hint, initialValue;
   final Function(String?) onChangeListenser;
-  final String? Function(String?) onValidateLIstenser;
+  final String? Function(String?) onValidateListenser;
   final IconData prefIcon;
   final TextInputType textType;
   const TextFormFieldSharedWidget(
@@ -13,7 +13,7 @@ class TextFormFieldSharedWidget extends StatelessWidget {
       required this.textType,
       required this.prefIcon,
       required this.onChangeListenser,
-      required this.onValidateLIstenser,
+      required this.onValidateListenser,
       required this.initialValue,
       Key? key})
       : super(key: key);
@@ -26,7 +26,7 @@ class TextFormFieldSharedWidget extends StatelessWidget {
         return TextFormField(
           initialValue: initialValue,
           onChanged: onChangeListenser,
-          validator: onValidateLIstenser,
+          validator: onValidateListenser,
           keyboardType: textType,
           style: const TextStyle(
             fontFamily: appFont,

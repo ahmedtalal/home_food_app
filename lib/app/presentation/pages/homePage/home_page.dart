@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:social_media_network/app/core/constants/app_colors.dart';
 import 'package:social_media_network/app/core/constants/strings.dart';
-import 'package:social_media_network/app/presentation/pages/Notificationspage/notifications_page.dart';
+import 'package:social_media_network/app/presentation/pages/notificationspage/notifications_page.dart';
 import 'package:social_media_network/app/presentation/pages/homePage/logic/home_page_controller.dart';
 import 'package:social_media_network/app/presentation/pages/homePage/widgets/bubble_items.dart';
 import 'package:social_media_network/app/presentation/pages/marketPlacePage/market_place_page.dart';

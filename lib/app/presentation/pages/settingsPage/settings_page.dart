@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:social_media_network/app/config/screen_handler.dart';
 import 'package:social_media_network/app/core/constants/strings.dart';
+import 'package:social_media_network/app/presentation/pages/auth/logic/getx/auth_controller.dart';
+import 'package:social_media_network/app/presentation/pages/auth/views/changepassword_page_view.dart';
 import 'package:social_media_network/app/presentation/pages/settingsPage/widgets/settings_model_widget.dart';
 import 'package:social_media_network/app/presentation/themes/theme_controller.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
-  static final controller = Get.find<ThemeController>();
+  // static final controller = Get.find<ThemeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +75,6 @@ class SettingsPage extends StatelessWidget {
                 child: const Icon(
                   Icons.chevron_right_rounded,
                   size: 32,
-                  color: Color.fromARGB(255, 0, 0, 0),
                 ),
               ),
             ],
@@ -83,15 +84,7 @@ class SettingsPage extends StatelessWidget {
             title: "Dark Mode",
             image: darkModeImage,
             color: Colors.red,
-            onClick: () {
-              if (Get.isDarkMode) {
-                controller.setThemeMode(ThemeMode.light);
-                controller.setThemeKeyValue(false);
-              } else {
-                controller.setThemeMode(ThemeMode.dark);
-                controller.setThemeKeyValue(true);
-              }
-            },
+            onClick: () {},
           ),
           const SizedBox(height: 20),
           const SettingHintBody(hint: "Profile"),
@@ -106,7 +99,9 @@ class SettingsPage extends StatelessWidget {
             title: "Change Password",
             image: changePasswordImage,
             color: Colors.purple,
-            onClick: () {},
+            onClick: () {
+              Get.to(() => ChangePasswordPageView());
+            },
           ),
           const SizedBox(height: 20),
           const SettingHintBody(hint: "App"),
@@ -132,12 +127,18 @@ class SettingsPage extends StatelessWidget {
             onClick: () {},
           ),
           const SizedBox(height: 10),
-          SettingBodySections(
-            title: "LogOut",
-            image: logoutImage,
-            color: const Color.fromARGB(255, 230, 65, 120),
-            onClick: () {},
-          ),
+          GetBuilder<AuthController>(
+              init: AuthController(),
+              builder: (authController) {
+                return SettingBodySections(
+                  title: "LogOut",
+                  image: logoutImage,
+                  color: const Color.fromARGB(255, 230, 65, 120),
+                  onClick: () {
+                    authController.onClickLogoutBtn();
+                  },
+                );
+              }),
           const SizedBox(height: 25),
           const Align(
             alignment: Alignment.center,

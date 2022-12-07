@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import 'package:social_media_network/app/config/screen_handler.dart';
 import 'package:social_media_network/app/core/constants/app_colors.dart';
 import 'package:social_media_network/app/presentation/pages/auth/logic/getx/auth_controller.dart';
-import 'package:social_media_network/app/presentation/shared/widgets/Text_btn_shared_widget.dart';
+import 'package:social_media_network/app/presentation/pages/auth/views/login_page_view.dart';
+import 'package:social_media_network/app/presentation/pages/auth/widgets/choice_auth_status_btn.dart';
 import 'package:social_media_network/app/presentation/shared/widgets/text_form_field_shared_widget.dart';
 import 'package:social_media_network/app/presentation/shared/widgets/text_link_shared_widget.dart';
 import '../../../shared/widgets/gender_shared_widget.dart';
@@ -15,11 +16,9 @@ class RegisterFormWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   static var formKey = GlobalKey<FormState>();
-  static String? email, password, name, phone, firstName, lastName, address;
   static bool? gender;
   static bool isMaleGender = false;
   static bool isFemaleGender = false;
-  static bool isOtherGender = false;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
@@ -44,7 +43,7 @@ class RegisterFormWidget extends StatelessWidget {
                       onChangeListenser: (String? newValue) {
                         controller.onChangeFirstName(newValue);
                       },
-                      onValidateLIstenser: (String? value) {
+                      onValidateListenser: (String? value) {
                         return controller.onValidateField(value);
                       },
                       prefIcon: Icons.person,
@@ -61,7 +60,7 @@ class RegisterFormWidget extends StatelessWidget {
                       onChangeListenser: (String? newValue) {
                         controller.onChangeLastName(newValue);
                       },
-                      onValidateLIstenser: (String? value) {
+                      onValidateListenser: (String? value) {
                         return controller.onValidateField(value);
                       },
                       prefIcon: Icons.person,
@@ -80,7 +79,7 @@ class RegisterFormWidget extends StatelessWidget {
                   onChangeListenser: (String? newValue) {
                     controller.onChangeUserName(newValue);
                   },
-                  onValidateLIstenser: (String? value) {
+                  onValidateListenser: (String? value) {
                     return controller.onValidateField(value);
                   },
                   prefIcon: Icons.person,
@@ -97,7 +96,7 @@ class RegisterFormWidget extends StatelessWidget {
                   onChangeListenser: (String? newValue) {
                     controller.onChangeEmail(newValue);
                   },
-                  onValidateLIstenser: (String? value) {
+                  onValidateListenser: (String? value) {
                     return controller.onValidateField(value);
                   },
                   prefIcon: Icons.email,
@@ -114,7 +113,7 @@ class RegisterFormWidget extends StatelessWidget {
                   onChangeListenser: (String? newValue) {
                     controller.onChangePhone(newValue);
                   },
-                  onValidateLIstenser: (String? value) {
+                  onValidateListenser: (String? value) {
                     return controller.validatePhoneNumber(value);
                   },
                   prefIcon: Icons.phone,
@@ -131,7 +130,7 @@ class RegisterFormWidget extends StatelessWidget {
                   onChangeListenser: (String? newValue) {
                     controller.onChangePassword(newValue);
                   },
-                  onValidateLIstenser: (String? value) {
+                  onValidateListenser: (String? value) {
                     return controller.validatePasswordField(value);
                   },
                   prefIcon: Icons.lock,
@@ -158,7 +157,6 @@ class RegisterFormWidget extends StatelessWidget {
                           setState(() {
                             isMaleGender = true;
                             isFemaleGender = false;
-                            isOtherGender = false;
                             gender = true;
                             controller.onChangeGender(gender!);
                             print(gender);
@@ -180,7 +178,6 @@ class RegisterFormWidget extends StatelessWidget {
                           setState(() {
                             isFemaleGender = true;
                             isMaleGender = false;
-                            isOtherGender = false;
                             gender = false;
                             controller.onChangeGender(gender!);
                             print(gender);
@@ -192,24 +189,20 @@ class RegisterFormWidget extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.center,
-                child: TextBtnSharedWidget(
-                  title: "Register",
-                  containerColor: customeColor3,
-                  textColor: Colors.white,
-                  containerBorderColor: customeColor3,
-                  onClick: () {
-                    controller.onClickRegisterBtn(formKey);
-                  },
-                ),
+              ChoiceAuthStatusBtn(
+                controller: controller,
+                title: "Register",
+                formKey: formKey,
+                onClick: () {
+                  controller.onClickRegisterBtn(formKey);
+                },
               ),
               const SizedBox(height: 10),
               TextLinkSharedWidget(
                 title: "Do your have an account ?",
                 authTitle: "Login",
                 onClick: () {
-                  Get.back();
+                  Get.to(() => LoginPage());
                 },
               ),
             ],

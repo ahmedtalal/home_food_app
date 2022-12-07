@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:social_media_network/app/core/constants/app_colors.dart';
 import 'package:social_media_network/app/core/constants/strings.dart';
-import 'package:social_media_network/app/presentation/pages/auth/views/login_page_view.dart';
 import 'package:social_media_network/app/presentation/pages/auth/views/register_page_view.dart';
 import 'package:social_media_network/app/presentation/pages/splashscreen/widgets/iamge_builder.dart';
 import 'package:social_media_network/app/presentation/pages/splashscreen/widgets/page_decoration.dart';
@@ -19,7 +18,6 @@ class SplashScreenPage extends StatefulWidget {
 class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -42,7 +40,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
               SliderPageView(
                 title: "Cooking safe food",
                 body:
-                    "We are maintain safty and we keep clearn while making food",
+                    "We are maintain safty and we keep clean while making food",
                 image: imageBuilder(cookingFoodImg, context),
                 decoration: getPageDecoration(),
               ),
@@ -68,7 +66,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
               ),
             ),
             onDone: () {
-              Get.off(() => LoginPage());
+              Get.off(() => RegisterPage());
             },
             showSkipButton: true,
             skip: Text(

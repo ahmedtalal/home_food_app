@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:social_media_network/app/core/constants/strings.dart';
 import 'package:social_media_network/app/data/models/user_model.dart';
@@ -6,40 +8,131 @@ import 'package:social_media_network/app/domain/entities/user_entity.dart';
 
 class AuthApiService {
   ApiHelper _apiHelper = ApiHelper();
+
   Future<Map<String, dynamic>> registerApiService(UserEntity userEntity) async {
-    Map<String, dynamic> data = UserModel.toJson(userEntity);
-    Response response = await _apiHelper.postRequest(data, "Users");
-    if (response.statusCode == 201) {
-      print("succes");
-      return {
-        mapKey: true,
-        mapValue: response.data,
-      };
-    } else {
-      print("failed");
+    try {
+      Map<String, dynamic> data = UserModel.toJson(userEntity);
+      Response response =
+          await _apiHelper.postRequest(data: data, path: "Users");
+      if (response.statusCode == 201) {
+        print("success");
+        return {
+          mapKey: true,
+          mapValue: response.data,
+        };
+      } else {
+        print("failed");
+        return {
+          mapKey: false,
+          mapValue: response.statusMessage,
+        };
+      }
+    } on DioError catch (error) {
+      print("dio error");
       return {
         mapKey: false,
-        mapValue: response.statusMessage,
+        mapValue: error.response.toString(),
+      };
+    } catch (e) {
+      print("catch error");
+      return {
+        mapKey: false,
+        mapValue: e.toString(),
       };
     }
   }
 
   Future<Map<String, dynamic>> loginApiService(UserEntity userEntity) async {
-    Map<String, dynamic> data = UserModel.toJson(userEntity);
-    Response response =
-        await _apiHelper.postRequest(data, "Users/LoginByEmail");
-    if (response.statusCode == 201) {
-      return {
-        mapKey: true,
-        mapValue: response.data,
-      };
-    } else {
+    try {
+      Response? response;
+      if (userEntity.email!.contains("@")) {
+        final data1 = {
+          "email": userEntity.email,
+          "password": userEntity.password,
+        };
+        print(data1.toString());
+        response = await _apiHelper.getRequest(
+            path: "Users/LoginByEmail", parameters: data1);
+        //("the data is ${jsonDecode(response.data.toString())}");
+        print(response.data);
+      } else {
+        final data2 = {
+          "userName": userEntity.email,
+          "password": userEntity.password,
+        };
+        print(data2.toString());
+        response = await _apiHelper.getRequest(
+            path: "Users/LoginByUsername", parameters: data2);
+        //("the data is ${jsonDecode(response.data.toString())}");
+        print(response.data);
+      }
+      if (response.statusCode == 200) {
+        print("success");
+        return {
+          mapKey: true,
+          mapValue: response.data,
+        };
+      } else {
+        print("failed");
+        return {
+          mapKey: false,
+          mapValue: response.statusMessage,
+        };
+      }
+    } on DioError catch (error) {
+      print("dio error");
       return {
         mapKey: false,
-        mapValue: response.statusMessage,
+        mapValue: error.response.toString(),
+      };
+    } catch (e) {
+      print("catch error");
+      return {
+        mapKey: false,
+        mapValue: e.toString(),
       };
     }
   }
 
-
+  Future<Map<String, dynamic>> changeUserPassword(
+    String id,
+    String oldPassword,
+    String newPassword,
+  ) async {
+    try {
+      var data = {
+        "id": id,
+        "oldPassword": oldPassword,
+        "newPassword": newPassword,
+      };
+      print("the new model is ${data.toString()}");
+      Response response = await _apiHelper.putRequest(
+          queryParameter: data, path: "Users/ChangeUserPassword");
+      if (response.statusCode == 200) {
+        print("success");
+        return {
+          mapKey: true,
+          mapValue: response.data,
+        };
+      } else {
+        print("failed");
+        return {
+          mapKey: false,
+          mapValue: response.statusMessage,
+        };
+      }
+    } on DioError catch (error) {
+      print("dio error");
+      return {
+        mapKey: false,
+        mapValue: error.response.toString(),
+      };
+    } catch (e) {
+      print("catch error");
+      return {
+        mapKey: false,
+        mapValue: e.toString(),
+      };
+    }
+  }
 }

@@ -8,10 +8,10 @@ abstract class IAuthRepository {
     required String oldPassword,
     required String newPassword,
   });
-  Future<Map<String, dynamic>> logOut();
+  Future<bool> logOut();
   bool checkIsLogin();
   Future<Map<String, dynamic>> loginUsingFacebook(dynamic data);
-  Future<Map<String, dynamic>> loginUsingtwitter(dynamic data);
+  Future<Map<String, dynamic>> loginUsingTwitter(dynamic data);
   Future<Map<String, dynamic>> loginUsingGoogle(dynamic data);
   Future<Map<String, dynamic>> loginUsingGitHub(dynamic data);
 }

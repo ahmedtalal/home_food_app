@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class ApiHelper {
   const ApiHelper();
-  static const apiAddress = "https://45.241.58.17:8443/api/";
+  static const apiAddress = "http://abahay-001-site1.etempurl.com/api/";
   Dio _initDio() {
     Dio dio = Dio(
       BaseOptions(
@@ -29,25 +28,34 @@ class ApiHelper {
     return dio;
   }
 
-  Future<Response> postRequest(Map<String, dynamic> data, String path) async {
-    Response response = await _initDio().post(path, data: data);
+  Future<Response> postRequest({
+    Map<String, dynamic>? data,
+    required String path,
+    Map<String, dynamic>? parameters,
+  }) async {
+    Response response =
+        await _initDio().post(path, data: data, queryParameters: parameters);
     print(response);
     return response;
   }
 
-  Future<Response> getRequest(
-    String path,
-    Map<String, dynamic> parameters,
-  ) async {
+  Future<Response> getRequest({
+    required String path,
+    Map<String, dynamic>? parameters,
+  }) async {
     return await _initDio().get(path, queryParameters: parameters);
   }
 
-  Future<Response> putRequest(String path, Map<String, dynamic> data) async {
-    return await _initDio().put(path, data: data);
+  Future<Response> putRequest({
+    required String path,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? queryParameter,
+  }) async {
+    return await _initDio().put(path, data: data,queryParameters: queryParameter);
   }
 
-  Future<Response> deleteRequest(String path, Map<String, dynamic> parameters,
-      Map<String, dynamic> data) async {
+  Future<Response> deleteRequest({required String path, Map<String, dynamic>? parameters,
+      Map<String, dynamic>? data}) async {
     return await _initDio().delete(
       path,
       data: data,

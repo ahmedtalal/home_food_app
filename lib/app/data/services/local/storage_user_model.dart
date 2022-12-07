@@ -15,4 +15,10 @@ class StorageUserModel extends GetxController {
   Map<String, dynamic> loadData() {
     return _storage.read(userKey) ?? {};
   }
+
+ Future<bool> removeData()async {
+   await _storage.remove(userKey);
+   return true ;
+  }
+
 }

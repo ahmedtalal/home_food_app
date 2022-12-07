@@ -1,4 +1,5 @@
 {
-     "editor.fontSize": 16.3,
-     "editor.fontFamily": "'Ubuntu Mono',  'Droid Sans Fallback', 'monospace', monospace"
+     "editor.fontSize": 15.4,
+     "editor.fontFamily": "'Menlo','JetBrains Mono','Consolas','Ubuntu Mono',  'Droid Sans Fallback', 'monospace', monospace",
+     "editor.fontLigatures": false
 }

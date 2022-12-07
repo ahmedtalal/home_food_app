@@ -107,7 +107,7 @@ class AuthApiService {
       };
       print("the new model is ${data.toString()}");
       Response response = await _apiHelper.putRequest(
-          queryParameter: data, path: "Users/ChangeUserPassword");
+          queryParameter: data, path: "Users/ChangeUserPassword?");
       if (response.statusCode == 200) {
         print("success");
         return {

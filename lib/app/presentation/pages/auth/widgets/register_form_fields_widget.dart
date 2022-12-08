@@ -97,7 +97,7 @@ class RegisterFormWidget extends StatelessWidget {
                     controller.onChangeEmail(newValue);
                   },
                   onValidateListenser: (String? value) {
-                    return controller.onValidateField(value);
+                    return controller.onValidateEmailField(value);
                   },
                   prefIcon: Icons.email,
                   textType: TextInputType.emailAddress,

@@ -84,7 +84,7 @@ class AuthController extends GetxController {
   String? validatePhoneNumber(String? newValue) {
     if (newValue!.isEmpty) {
       return "this field is required";
-    } else if (newValue.length != 11 && !newValue.contains(RegExp(r'[A-Z]'))) {
+    } else if (newValue.length != 11 || newValue.contains(RegExp(r'[A-Z]'))) {
       return "your phone is not validate and may be wrong ";
     } else if (newValue.substring(0, 3) == "011" ||
         newValue.substring(0, 3) == "012" ||
@@ -102,6 +102,16 @@ class AuthController extends GetxController {
       return "weak password or must contain numbers and letters and @,#";
     }
     return null;
+  }
+
+  String? onValidateEmailField(String? value) {
+    if (value!.isEmpty) {
+      return "this field is required";
+    } else if (!value.contains("@")) {
+      return "this email is invalid";
+    } else {
+      return null;
+    }
   }
 
   onClickLoginBtn(GlobalKey<FormState> key) async {
@@ -218,7 +228,8 @@ class AuthController extends GetxController {
 
   onClickLogoutBtn() async {
     bool value =
-        await LogOutUseCase(iAuthRepository: AuthApiRepositoryImp.instance).call();
+        await LogOutUseCase(iAuthRepository: AuthApiRepositoryImp.instance)
+            .call();
     if (value == true) {
       Get.offAll(() => SplashScreenPage());
     } else {

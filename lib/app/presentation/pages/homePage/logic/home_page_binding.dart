@@ -4,6 +4,6 @@ import 'package:social_media_network/app/presentation/pages/homePage/logic/home_
 class HomePageBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => HomePageController(), fenix: true);
+    Get.lazyPut(() => HomePageController.instance, fenix: true);
   }
 }

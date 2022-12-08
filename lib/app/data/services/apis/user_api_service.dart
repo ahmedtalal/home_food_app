@@ -3,7 +3,11 @@ import 'package:social_media_network/app/core/constants/strings.dart';
 import 'package:social_media_network/app/data/services/apis/api_helper.dart';
 
 class UserApiService {
-  ApiHelper _apiHelper = ApiHelper();
+  static UserApiService _userApiService = UserApiService._internal();
+  UserApiService._internal();
+  static UserApiService get instance => _userApiService;
+
+  ApiHelper _apiHelper = ApiHelper.instance;
   Future<Map<String, dynamic>> getUserProfile({required String id}) async {
     try {
       final userId = {

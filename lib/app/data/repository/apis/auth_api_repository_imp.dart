@@ -5,7 +5,11 @@ import 'package:social_media_network/app/domain/repositories/i_auth_repository.d
 import 'package:get/get.dart';
 
 class AuthApiRepositoryImp implements IAuthRepository {
-  AuthApiService _authApiService = AuthApiService();
+  static AuthApiRepositoryImp _apiRepositoryImp =
+      AuthApiRepositoryImp._internal();
+  AuthApiRepositoryImp._internal();
+  static AuthApiRepositoryImp get instance => _apiRepositoryImp;
+  AuthApiService _authApiService = AuthApiService.instance;
   @override
   bool checkIsLogin() {
     var data = Get.find<StorageUserModel>().loadData();
@@ -64,9 +68,10 @@ class AuthApiRepositoryImp implements IAuthRepository {
 
   @override
   Future<Map<String, dynamic>> updatePassword(
-      {required String oldPassword, required String newPassword}) async{
+      {required String oldPassword, required String newPassword}) async {
     String id = Get.find<StorageUserModel>().loadData()["id"];
     print("the user is is $id");
-    return await _authApiService.changeUserPassword(id,oldPassword, newPassword);
+    return await _authApiService.changeUserPassword(
+        id, oldPassword, newPassword);
   }
 }

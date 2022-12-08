@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   static final themeController = Get.put(ThemeController());
   static final _userIsLoginUseCase =
-      UserIsLoginUseCase(iAuthRepository: AuthApiRepositoryImp());
+      UserIsLoginUseCase(iAuthRepository: AuthApiRepositoryImp.instance);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,11 @@ import 'package:social_media_network/app/data/services/apis/api_helper.dart';
 import 'package:social_media_network/app/domain/entities/user_entity.dart';
 
 class AuthApiService {
-  ApiHelper _apiHelper = ApiHelper();
+  static AuthApiService _authApiService = AuthApiService._internal();
+  AuthApiService._internal();
+  static AuthApiService get instance => _authApiService;
+
+  ApiHelper _apiHelper = ApiHelper.instance;
 
   Future<Map<String, dynamic>> registerApiService(UserEntity userEntity) async {
     try {

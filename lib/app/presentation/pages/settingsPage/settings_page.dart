@@ -128,7 +128,7 @@ class SettingsPage extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           GetBuilder<AuthController>(
-              init: AuthController(),
+              init: AuthController.instance,
               builder: (authController) {
                 return SettingBodySections(
                   title: "LogOut",

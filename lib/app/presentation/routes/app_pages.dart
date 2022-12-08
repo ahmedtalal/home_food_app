@@ -6,8 +6,9 @@ import 'package:social_media_network/app/presentation/pages/auth/views/register_
 import 'package:social_media_network/app/presentation/pages/homePage/home_page.dart';
 import 'package:social_media_network/app/presentation/pages/homePage/logic/home_page_binding.dart';
 import 'package:social_media_network/app/presentation/pages/splashscreen/splash_screen_page.dart';
+import 'package:social_media_network/app/presentation/pages/userprofile/userprofile_page.dart';
 import 'package:social_media_network/app/presentation/routes/app_routes.dart';
-
+import 'package:social_media_network/app/presentation/pages/userprofile/logic/getx/userprofile_binding.dart';
 class AppPages {
   static List<GetPage> pages = [
     GetPage(
@@ -28,6 +29,11 @@ class AppPages {
       name: AppRoutes.homeScreenRoute,
       page: () => HomePage(),
       binding: HomePageBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.userProfileRoute,
+      page: () => UserProfilePage(),
+      binding: UserProfileBinding(),
     ),
   ];
 }

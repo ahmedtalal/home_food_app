@@ -4,7 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class ApiHelper {
-  const ApiHelper();
+
+  // here using singletone pattern
+  static ApiHelper _apiHelper = ApiHelper._internal();
+  ApiHelper._internal();
+  static ApiHelper get instance => _apiHelper;
+
   static const apiAddress = "http://abahay-001-site1.etempurl.com/api/";
   Dio _initDio() {
     Dio dio = Dio(

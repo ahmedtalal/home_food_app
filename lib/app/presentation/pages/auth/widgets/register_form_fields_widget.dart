@@ -22,7 +22,7 @@ class RegisterFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
-      init: AuthController(),
+      init: AuthController.instance,
       builder: (controller) {
         return Form(
           key: formKey,

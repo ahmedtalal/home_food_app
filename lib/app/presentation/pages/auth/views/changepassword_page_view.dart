@@ -15,7 +15,7 @@ class ChangePasswordPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<AuthController>(
-        init: AuthController(),
+        init: AuthController.instance,
         builder: (controller) {
           return Container(
             width: ScreenHandler.getScreenWidth(context),

@@ -3,7 +3,13 @@ import 'package:social_media_network/app/domain/entities/user_entity.dart';
 import 'package:social_media_network/app/domain/repositories/i_user_repository.dart';
 
 class UserApiRepositoryImp implements IUserRepository{
-  UserApiService _userApiService = UserApiService();
+
+  // here implement singleTone design pattern
+  static UserApiRepositoryImp _apiRepositoryImp = UserApiRepositoryImp._internal();
+  UserApiRepositoryImp._internal();
+  static UserApiRepositoryImp get instance => _apiRepositoryImp;
+
+  UserApiService _userApiService = UserApiService.instance;
   @override
   Future<Map<String, dynamic>> deleteUser({required String userId}) {
     // TODO: implement deleteUser

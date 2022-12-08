@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomePageController>(
-      init: HomePageController(),
+      init: HomePageController.instance,
       builder: (controller) {
         return Scaffold(
           bottomNavigationBar: BubbleBottomBar(

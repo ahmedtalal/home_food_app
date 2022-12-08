@@ -13,6 +13,10 @@ import 'package:social_media_network/app/presentation/pages/homePage/home_page.d
 import 'package:social_media_network/app/presentation/pages/splashscreen/splash_screen_page.dart';
 
 class AuthController extends GetxController {
+  static AuthController _authController = AuthController._internal();
+  AuthController._internal();
+  static AuthController get instance => _authController;
+
   String userName = '';
   String email = '';
   String password = '';
@@ -23,11 +27,11 @@ class AuthController extends GetxController {
   bool gender = false;
   bool isLoadingIcon = false;
   final LoginUseCase _loginUseCase =
-      LoginUseCase(iAuthRepository: AuthApiRepositoryImp());
+      LoginUseCase(iAuthRepository: AuthApiRepositoryImp.instance);
   final RegisterUseCase _registerUseCase =
-      RegisterUseCase(iAuthRepository: AuthApiRepositoryImp());
+      RegisterUseCase(iAuthRepository: AuthApiRepositoryImp.instance);
   final ChangePasswordUseCase _passwordUseCase = ChangePasswordUseCase(
-    iAuthRepository: AuthApiRepositoryImp(),
+    iAuthRepository: AuthApiRepositoryImp.instance,
   );
 
   onChangeUserName(String? value) {
@@ -214,7 +218,7 @@ class AuthController extends GetxController {
 
   onClickLogoutBtn() async {
     bool value =
-        await LogOutUseCase(iAuthRepository: AuthApiRepositoryImp()).call();
+        await LogOutUseCase(iAuthRepository: AuthApiRepositoryImp.instance).call();
     if (value == true) {
       Get.offAll(() => SplashScreenPage());
     } else {
